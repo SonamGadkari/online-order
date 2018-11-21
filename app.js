@@ -108,7 +108,7 @@ app.use((req, res) => { res.status(404).render('404.ejs') }) // handle page not 
 require('./utils/seeder.js')(app)  // load seed data
  
  // Listen for an application request on designated port
- app.listen(port, function () {
+ app.listen(process.env.PORT || port, function () {
   console.log('Web app started and listening on http://localhost:' + port)
   console.log('\nLogs will be sent to this terminal and ' + logfile + '.')
  })
