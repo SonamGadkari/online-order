@@ -81,7 +81,6 @@ api.get('/details/:id', (req, res) => {
 api.get('/edit/:id', (req, res) => {
   LOG.info(`Handling GET /edit/:id ${req}`)
  // const id = parseInt(req.params.id, 10) // base 10
-  const id=100
   const data = req.app.locals.orders.query
   const item = find(data, { _orderid: id })
   if (!item) { return res.end(notfoundstring) }
@@ -103,8 +102,8 @@ api.post('/save', (req, res) => {
   const data = req.app.locals.orders.query
   const item = new Model()
   LOG.info(`NEW ID ${req.body._orderid}`)
-//  item._orderid = parseInt(req.body._orderid, 10) // base 10
-  item._orderid = req.body._orderid
+  item._orderid = parseInt(req.body._orderid, 10) // base 10
+//  item._orderid = req.body._orderid
   item.ordername = req.body.ordername
   item.orderdate = req.body.orderdate
   item.shippingAdress = req.body.shippingAdress
