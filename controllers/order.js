@@ -80,7 +80,8 @@ api.get('/details/:id', (req, res) => {
 // GET one
 api.get('/edit/:id', (req, res) => {
   LOG.info(`Handling GET /edit/:id ${req}`)
-  const id = parseInt(req.params.id, 10) // base 10
+ // const id = parseInt(req.params.id, 10) // base 10
+  const id=100
   const data = req.app.locals.orders.query
   const item = find(data, { _orderid: id })
   if (!item) { return res.end(notfoundstring) }
@@ -102,13 +103,14 @@ api.post('/save', (req, res) => {
   const data = req.app.locals.orders.query
   const item = new Model()
   LOG.info(`NEW ID ${req.body._orderid}`)
-  item._orderid = parseInt(req.body._orderid, 10) // base 10
-  item.firstname = req.body.firstname
-  item.lastname = req.body.lastname
-  item.datePlaced = req.body.datePlaced
-  item.dateShipped = req.body.dateShipped
-  item.paymentType = req.body.paymentType
-  item.paid = req.body.paid
+//  item._orderid = parseInt(req.body._orderid, 10) // base 10
+  item._orderid = req.body._orderid
+  item.ordername = req.body.ordername
+  item.orderdate = req.body.orderdate
+  item.shippingAdress = req.body.shippingAdress
+  item.deliveryDetails = req.body.deliveryDetails
+  item._productID = req.body._productID
+  item.cashOnDelivery = req.body.cashOnDelivery
     data.push(item)
     LOG.info(`SAVING NEW order ${JSON.stringify(item)}`)
     return res.redirect('/order')
@@ -124,12 +126,12 @@ api.post('/save/:id', (req, res) => {
   if (!item) { return res.end(notfoundstring) }
   LOG.info(`ORIGINAL VALUES ${JSON.stringify(item)}`)
   LOG.info(`UPDATED VALUES: ${JSON.stringify(req.body)}`)
-  item.firstname = req.body.firstname
-  item.lastname = req.body.lastname
-  item.datePlaced = req.body.datePlaced
-  item.dateShipped = req.body.dateShipped
-  item.paymentType = req.body.paymentType
-  item.paid = req.body.paid
+  item.ordername = req.body.ordername
+  item.orderdate = req.body.orderdate
+  item.shippingAdress = req.body.shippingAdress
+  item.deliveryDetails = req.body.deliveryDetails
+  item._productID = req.body._productID
+  item.cashOnDelivery = req.body.cashOnDelivery
     LOG.info(`SAVING UPDATED orderLine ${JSON.stringify(item)}`)
     return res.redirect('/order')
 })
