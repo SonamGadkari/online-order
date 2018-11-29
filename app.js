@@ -14,7 +14,7 @@ const expressStatusMonitor = require('express-status-monitor')
 const LOG = require('./utils/logger.js')
 const logfile = '/access.log'
 const app = express()  // make express app
-const port =  8081 || process.env.PORT 
+const port = process.env.PORT  || 8081
 const fs = require('fs')
 
 
@@ -34,7 +34,7 @@ app.set('view engine', 'ejs')
 app.engine('ejs',engines.ejs)
 
 // configure middleware.....................................................
-app.use(favicon(path.join(__dirname, '/public/images/favicon.ico')))
+// app.use(favicon(path.join(__dirname, '/public/images/favicon.ico')))
 app.use(expressStatusMonitor())
 
 
@@ -68,6 +68,14 @@ app.get("/", function (req, res) {
   res.render("product.ejs")
  })
 
+ //app.get("/order", function (req, res) {
+  //res.render("order.ejs")
+ //})
+
+//  app.get("/orderLineItem", function (req, res) {
+//   res.render("orderLineItem.ejs")
+//  })
+
  app.get("/customer", function (req, res) {
   res.render("customer.ejs")
  })
@@ -100,7 +108,7 @@ app.use((req, res) => { res.status(404).render('404.ejs') }) // handle page not 
 require('./utils/seeder.js')(app)  // load seed data
  
  // Listen for an application request on designated port
- app.listen(process.env.PORT || port, function () {
+ app.listen(port, function () {
   console.log('Web app started and listening on http://localhost:' + port)
-  console.log('\nLogs will be sent to this terminal and ' + logfile)
+  console.log('\nLogs will be sent to this terminal and ' + logfile + '.')
  })

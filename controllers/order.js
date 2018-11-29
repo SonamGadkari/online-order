@@ -80,7 +80,7 @@ api.get('/details/:id', (req, res) => {
 // GET one
 api.get('/edit/:id', (req, res) => {
   LOG.info(`Handling GET /edit/:id ${req}`)
- // const id = parseInt(req.params.id, 10) // base 10
+  const id = parseInt(req.params.id, 10) // base 10
   const data = req.app.locals.orders.query
   const item = find(data, { _orderid: id })
   if (!item) { return res.end(notfoundstring) }
